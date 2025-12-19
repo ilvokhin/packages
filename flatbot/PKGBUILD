@@ -1,0 +1,27 @@
+# Maintainer: Dmitry Ilvokhin <d@ilvokhin.com>
+
+pkgname=flatbot
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Telegram notification tool for rightmove.co.uk URLs'
+url='https://git.ilvokhin.com/flatbot.git'
+arch=(x86_64)
+license=(MIT)
+makedepends=(git go)
+source=("git+https://git.ilvokhin.com/flatbot.git#tag=v${pkgver}")
+sha512sums=('7fd5a57639d3dba1dc280aa4dbcc65297c826ecf2ae49e97cd84da33c84425d6b0a83865bd4fb45031107f94eabe2e0024ad64ba2ef9097589af018c2c92a416')
+
+build() {
+    cd "${pkgname}"
+    go build -o bin/flatbot
+}
+
+check() {
+    cd "${pkgname}"
+    go test
+}
+
+package() {
+    cd "${pkgname}"
+    install -D --mode=0755 bin/flatbot "${pkgdir}/usr/bin/flatbot"
+}
