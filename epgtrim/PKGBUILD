@@ -1,0 +1,28 @@
+# Maintainer: Dmitry Ilvokhin <d@ilvokhin.com>
+
+_reponame=misc
+pkgname=epgtrim
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Tool to trim EPG for specified playlist URL'
+url="https://git.ilvokhin.com/{$_reponame}.git/tree/epgtrim"
+arch=(x86_64)
+license=(MIT)
+makedepends=(git go)
+source=("git+https://git.ilvokhin.com/${_reponame}.git#tag=${pkgname}/v${pkgver}")
+sha512sums=('c217ae7c5f69a2260f1f51860786818d4d4f4b50a68beb6d36c07b621f435f12aa11d337dc8962acfeed87cccb6a63053526010d8cda16b2cbc67bc91b5ba7ce')
+
+build() {
+    cd "${_reponame}/${pkgname}"
+    go build -o bin/epgtrim
+}
+
+check() {
+    cd "${_reponame}/${pkgname}"
+    go test
+}
+
+package() {
+    cd "${_reponame}/${pkgname}"
+    install -D --mode=0755 bin/epgtrim "${pkgdir}/usr/bin/epgtrim"
+}
