@@ -23,4 +23,4 @@ rsync \
     $package \
     $host:$repo_dir/$arch
 
-ssh $host -- repo-add $repo_dir/$db $repo_dir/$arch/`basename $package`
+ssh $host -- repo-add $repo_dir/$arch/$db $repo_dir/$arch/`basename $package`
